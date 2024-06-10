@@ -1,0 +1,28 @@
+<!-- home.handlebars -->
+<h1>Welcome to the Tech Blog</h1>
+
+{{#if error}}
+  <p>{{error}}</p>
+{{/if}}
+
+{{#if posts}}
+  <p>Number of posts: {{posts.length}}</p>
+{{else}}
+  <p>No posts found.</p>
+{{/if}}
+
+<h2>Recent Posts</h2>
+{{#if posts.length}}
+  <ul>
+    {{#each posts}}
+      <li>
+        <h3><a href="/posts/{{dataValues.id}}">{{dataValues.title}}</a></h3>
+        <p>{{dataValues.content}}</p>
+        <p>Author: {{user.dataValues.username}}</p>
+        <p>Created at: {{formatDate dataValues.createdAt}}</p>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No posts found.</p>
+{{/if}}
