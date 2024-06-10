@@ -19,8 +19,9 @@ exports.getPostById = async (req, res) => {
       return res.status(404).render("404");
     }
 
-    // Render the post view with the post and its comments
-    res.render("post", { post });
+    // Verify if logged in already.
+    const loggedIn = req.session.loggedIn || false;
+    res.render("post", { post, loggedIn });
   } catch (error) {
     console.error(error);
     res.render("post", { error: "An error occurred" });

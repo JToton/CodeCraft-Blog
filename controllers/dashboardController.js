@@ -1,14 +1,14 @@
 const { Post } = require("../models");
 
-// dashboardController.js
 exports.getDashboard = async (req, res) => {
   try {
     const posts = await Post.findAll({
       where: { userId: req.session.userId },
       order: [["createdAt", "DESC"]],
     });
-    console.log("Retrieved posts:", posts); // Add this line
-    res.render("dashboard", { posts });
+    console.log("Retrieved posts:", posts);
+    const loggedIn = req.session.loggedIn || false;
+    res.render("dashboard", { posts, loggedIn });
   } catch (error) {
     console.error(error);
     res.render("dashboard", { error: "An error occurred" });
@@ -62,7 +62,9 @@ exports.getEditPost = async (req, res) => {
       return res.redirect("/dashboard");
     }
 
-    res.render("editPost", { post });
+    // Verify if logged in already.
+    const loggedIn = req.session.loggedIn || false;
+    res.render("editPost", { post, loggedIn });
   } catch (error) {
     console.error(error);
     res.redirect("/dashboard");

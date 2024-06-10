@@ -20,9 +20,11 @@ exports.login = async (req, res) => {
       return res.render("login", { error: "Invalid username or password" });
     }
 
-    // If the passwords match, create a session and redirect to the dashboard
+    // If the passwords match, create a session and set the loggedIn variable
     req.session.userId = user.id;
     req.session.username = user.username;
+    req.session.loggedIn = true;
+
     return res.redirect("/dashboard");
   } catch (error) {
     console.error(error);
@@ -55,9 +57,11 @@ exports.signup = async (req, res) => {
       password: hashedPassword,
     });
 
-    // Create a session and redirect to the dashboard
+    // Create a session and set the loggedIn variable
     req.session.userId = newUser.id;
     req.session.username = newUser.username;
+    req.session.loggedIn = true;
+
     return res.redirect("/dashboard");
   } catch (error) {
     console.error(error);
