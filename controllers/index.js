@@ -12,6 +12,7 @@ router.post("/login", authController.login);
 router.get("/signup", (req, res) => res.render("signup"));
 router.post("/signup", authController.signup);
 router.get("/logout", authController.logout);
+
 router.get(
   "/dashboard",
   authController.authenticateUser,
